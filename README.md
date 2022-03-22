@@ -1,6 +1,117 @@
-Note to readers: On December 1, 2020, the Libra Association was renamed to Diem Association. The project repos are in the process of being migrated. All projects will remain available for use here until the migration to a new GitHub Organization is complete.
+# M5Stack Hardware Wallet
 
-Diem Improvement Proposals (DIP) describe standards for the Diem Payment Network (DPN) including the core blockchain protocol and the development platform (Move), smart contracts and systems for smart contract verification, standards for the deployment and operation of the DPN, APIs for accessing the DPN and processing information from the DPN, and off-chain mechanisms.
+(First?) Libra Hardware wallet. Built on M5Stack devices: Core, Grey, Fire compatible using KULAP libra services
 
-To submit or modify a DIP please refer to the instructions outlined on [dip.diem.com](https://dip.diem.com).
+# Usages
+1. Open m5stack_libra_hardware_wallet_OK.ino in Arduino IDE
+2. Change SSID and Passphase for your WIFI (this is using for call libra services)
+3. Upload codes into M5Stack
+3. Enjoy !!
 
+# Screens
+## 1. Login page
+  
+  PIN is 6 digits and using SHA256 to encrypt PIN and store to EEPROM
+
+  - Press 'A' keypad for shift PIN left
+  - Press 'B' keypad for Enter PIN
+  - Press 'C' keypad for shift PIN right
+  - Hold 'C' keypad for 20 seconds to RESET all things  /* For test purpose only */..
+  - Select '<' if you want to delete PIN
+  - Select '/' once you have done enter PIN
+
+## 2. Wallet Page
+
+  Show Libra Address (Full address) with Balance (Offline storage in EEPROM)
+
+  - Press 'A' keypad for show QR code to receive libra tokens
+  - Press 'B' keypad for sign in or sign transaction with web wallet  /* Future function */..
+  - Press 'C' keypad for logout
+  - Hold 'C' keypad for 20 seconds to RESET all things  /* For test purpose only */..
+
+## 3. Sign Trx Page
+
+  Sign Transaction with Libra-Wallet-POC
+  https://github.com/kulapio/libra-wallet-poc
+
+  Press "Use HW Wallet" when prompt to select and then press 'B' button to sync data to Libra-Wallet-POC app
+
+# M5StickC Clock & Wallet
+
+(First?) Libra Hardware wallet. Built on M5SickC devices using KULAP libra services
+
+# Usages
+1. Open M5Stick_Clock_LIbra.ino in Arduino IDE
+2. Change SSID and Passphase for your WIFI (this is using for call libra services)
+3. Upload codes into M5Stack
+3. Enjoy !!
+
+# Screens
+## 1. Clock page
+  
+  Display current Time
+
+  - Press 'HOME' keypad for input PIN
+
+## 2. Login Page
+
+  - Press 'HOME' keypad for Enter PIN
+  - Press 'RST' keypad for shift PIN right
+  - Press 'HOME' and 'RST' keypad for return to clock face  /* For test purpose only */..
+  - Select '<' if you want to delete PIN
+  - Select '/' once you have done enter PIN
+
+## 3. Wallet Page
+
+  Show Libra Address (Full address) with Balance (Offline storage in EEPROM)
+
+  - Press 'HOME' keypad for sign in or sign transaction with web wallet  /* Future function */..
+  - Press 'RST' keypad for return to clock face
+  - Press 'HOME' and 'RST' keypad for RESET all things  /* For test purpose only */..
+
+## 3. Sign Trx Page
+
+  Sign Transaction with Libra-Wallet-POC
+  https://github.com/kulapio/libra-wallet-poc
+
+  Press "Use HW Wallet" when prompt to select and then press 'HOME' button to sync data to Libra-Wallet-POC app
+  Press 'RST' button to exit
+
+# Libra Services
+
+Libra Services from KULAP.io 
+https://github.com/kulapio/libra-service
+
+## Create wallet:
+```POST /createWallet```
+
+Headers: ```Content-Typeapplication/json```
+
+Body: ```{}```
+
+Example Request:
+```
+curl --location --request POST "https://libraservice2.kulap.io/createWallet" \
+  --header "Content-Type: application/json" \
+  --data "{}"
+```
+
+Example Output:
+```
+{
+    "address": "5554d60c1af7592673f0ac012ce483b842c06de3d896029cfe957c348621d5b7",
+    "balance": "100",
+    "mnemonic": "parrot afraid always popular trade grape divide wave dawn web identify kangaroo equal suffer humor creek scan stove hip kingdom skin enable flush announce;1"
+}
+```
+## Todo
+- [X] Creating wallet and store keys in EEPROM
+- [ ] Mnemonic phase Encryption with AES (or other techniques)
+- [X] BLE Connectivity and sign trx when login or transfer using web wallet
+- [ ] WIFI Selector (now not user friendly need to fix SSID and key in the code)
+- [ ] Offline mode without WIFI
+- [ ] More functions to make it pure ledger nano / Trazor for Libra
+
+# References:
+- onScreenKyeboard: https://github.com/yellowelise/m5stack-onscreen-keyboard
+- SHA256 lib: https://github.com/kamaljohnson/Arduino-SHA256
